@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Algorithms Visualized</string>
+    <string name="title_activity_algorithms">AlgorithmsActivity</string>
+    <string name="action_settings">Settings</string>
 </resources>
