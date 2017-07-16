@@ -1,5 +1,6 @@
 package com.sbagadi.apps.algorithmsvisualized.ui;
 
+import android.content.res.Resources;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -14,7 +15,8 @@ import com.sbagadi.apps.algorithmsvisualized.R;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class AlgorithmsActivityFragment extends Fragment {
+public class AlgorithmsActivityFragment extends Fragment implements
+        AlgorithmsRecyclerViewAdapter.ItemViewHolder.OnItemClickListener{
 
     private RecyclerView mRecyclerView;
 
@@ -32,27 +34,21 @@ public class AlgorithmsActivityFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        String[] algorithmNames =
+                getActivity().getResources().getStringArray(R.array.algorithm_names);
         AlgorithmsRecyclerViewAdapter adapter =
-                new AlgorithmsRecyclerViewAdapter(generateAlgorithmNamesArray());
+                new AlgorithmsRecyclerViewAdapter(algorithmNames, AlgorithmsActivityFragment.this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(adapter);
-
     }
 
-    /**
-     * Generates an array of strings with the algorithm names.
-     *
-     * @return a {@link String[]} containing names of algorithms.
-     */
-    private static String[] generateAlgorithmNamesArray() {
-        String[] algorithmNames = new String[5];
-        algorithmNames[0] = "Bubble Sort";
-        algorithmNames[1] = "Quick Sort";
-        algorithmNames[2] = "Merge Sort";
-        algorithmNames[3] = "Insertion Sort";
-        algorithmNames[4] = "Selection Sort";
-
-        return algorithmNames;
+    //region OnItemClickListener implementation
+    @Override
+    public void onItemClick(View view, int position) {
+        if (getActivity() != null) {
+            // TODO: Start the algorithms detail activity.
+        }
     }
+    //endregion
 }

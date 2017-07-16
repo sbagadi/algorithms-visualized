@@ -16,20 +16,26 @@ public class AlgorithmsRecyclerViewAdapter extends
         RecyclerView.Adapter<AlgorithmsRecyclerViewAdapter.ItemViewHolder> {
 
     private String[] mAlgorithmNames;
+    private ItemViewHolder.OnItemClickListener mItemClickListener;
 
-    public AlgorithmsRecyclerViewAdapter(String[] algorithmNames) {
+    public AlgorithmsRecyclerViewAdapter(String[] algorithmNames,
+                                         ItemViewHolder.OnItemClickListener itemClickListener) {
         mAlgorithmNames = algorithmNames;
+        mItemClickListener = itemClickListener;
     }
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder {
         private final TextView mAlgorithmNameTextView;
-        public ItemViewHolder(View itemView) {
+        private final OnItemClickListener mListener;
+
+        public ItemViewHolder(final View itemView, OnItemClickListener listener) {
             super(itemView);
+            mListener = listener;
             mAlgorithmNameTextView = (TextView) itemView.findViewById(R.id.algorithm_name_textView);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // TODO: Show the algorithm details page.
+                    mListener.onItemClick(itemView, getAdapterPosition());
                 }
             });
         }
@@ -37,13 +43,17 @@ public class AlgorithmsRecyclerViewAdapter extends
         public TextView getAlgorithmNameTextView() {
             return mAlgorithmNameTextView;
         }
+
+        public interface OnItemClickListener {
+            void onItemClick(View view, int position);
+        }
     }
 
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.algorithms_list_item, parent, false);
-        return new ItemViewHolder(itemView);
+        return new ItemViewHolder(itemView, mItemClickListener);
     }
 
     @Override

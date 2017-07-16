@@ -2,4 +2,13 @@
     <string name="app_name">Algorithms Visualized</string>
     <string name="title_activity_algorithms">AlgorithmsActivity</string>
     <string name="action_settings">Settings</string>
+
+    <!--Algorithm names array.-->
+    <string-array name="algorithm_names">
+        <item>Bubble Sort</item>
+        <item>Quick Sort</item>
+        <item>Merge Sort</item>
+        <item>Insertion Sort</item>
+        <item>Selection Sort</item>
+    </string-array>
 </resources>
