@@ -1,5 +1,6 @@
 package com.sbagadi.apps.algorithmsvisualized.ui;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sbagadi.apps.algorithmsvisualized.R;
+import com.sbagadi.apps.algorithmsvisualized.ui.algorithms.AlgorithmDetailsActivity;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -21,6 +23,7 @@ public class AlgorithmsActivityFragment extends Fragment implements
     private RecyclerView mRecyclerView;
 
     public AlgorithmsActivityFragment() {
+        // Required empty public constructor.
     }
 
     @Override
@@ -48,6 +51,7 @@ public class AlgorithmsActivityFragment extends Fragment implements
     public void onItemClick(View view, int position) {
         if (getActivity() != null) {
             // TODO: Start the algorithms detail activity.
+            startActivity(new Intent(getActivity(), AlgorithmDetailsActivity.class));
         }
     }
     //endregion

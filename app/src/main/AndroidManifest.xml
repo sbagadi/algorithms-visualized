@@ -19,6 +19,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.algorithms.AlgorithmDetailsActivity"
+            android:label="@string/title_activity_algorithm_details"
+            android:parentActivityName=".ui.AlgorithmsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.sbagadi.apps.algorithmsvisualized.ui.AlgorithmsActivity" />
+        </activity>
     </application>
 
 </manifest>
