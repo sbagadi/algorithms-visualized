@@ -16,4 +16,11 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="bubble_sort_name">Bubble Sort</string>
+    <string name="bubble_sort_description">Bubble sort is a simple sorting algorithm where we start
+    at the beginning of the array and swap the first two elements if the first is greater than the
+    second. Then, we go to the next pair, and so on, continuously making sweeps of the array until
+    it is sorted. In doing so, the smaller items slowly "bubble" up to the beginning of the list.
+    </string>
 </resources>

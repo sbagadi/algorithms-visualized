@@ -16,11 +16,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.sbagadi.apps.algorithmsvisualized.R;
 
-public class AlgorithmDetailsActivity extends AppCompatActivity {
+public class AlgorithmDetailsActivity extends AppCompatActivity implements
+        AlgorithmFragment.AlgorithmFragmentContainer {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -36,6 +38,10 @@ public class AlgorithmDetailsActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+
+    private ImageButton mNextStepButton;
+    private ImageButton mPreviousStepButton;
+    private ImageButton mRefreshButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +59,9 @@ public class AlgorithmDetailsActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
+        mNextStepButton = (ImageButton) findViewById(R.id.next_setp_imageButton);
+        mPreviousStepButton = (ImageButton) findViewById(R.id.previous_step_imageButton);
+        mRefreshButton = (ImageButton) findViewById(R.id.refresh_imageButton);
     }
 
 
@@ -77,6 +86,44 @@ public class AlgorithmDetailsActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    //region AlgorithmFragmentContainer implementation
+    @Override
+    public ImageButton getPreviousStepButton() {
+        return mPreviousStepButton;
+    }
+
+    @Override
+    public void setPreviousStepButtonEnabled(boolean enabled) {
+        if (mPreviousStepButton != null) {
+            mPreviousStepButton.setEnabled(enabled);
+        }
+    }
+
+    @Override
+    public ImageButton getNextStepButton() {
+        return mNextStepButton;
+    }
+
+    @Override
+    public void setNextStepButtonEnabled(boolean enabled) {
+        if (mNextStepButton != null) {
+            mNextStepButton.setEnabled(enabled);
+        }
+    }
+
+    @Override
+    public ImageButton getRefreshButton() {
+        return mRefreshButton;
+    }
+
+    @Override
+    public void setRefreshButtonEnabled(boolean enabled) {
+        if (mRefreshButton != null) {
+            mRefreshButton.setEnabled(enabled);
+        }
+    }
+    //endregion
 
     /**
      * A placeholder fragment containing a simple view.
