@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.sbagadi.apps.algorithmsvisualized.R;
+import com.sbagadi.apps.algorithmsvisualized.data.Algorithm;
+
+import java.util.ArrayList;
 
 /**
  * A {@link android.support.v7.widget.RecyclerView.Adapter} used to display the list of algorithm
@@ -15,12 +18,12 @@ import com.sbagadi.apps.algorithmsvisualized.R;
 public class AlgorithmsRecyclerViewAdapter extends
         RecyclerView.Adapter<AlgorithmsRecyclerViewAdapter.ItemViewHolder> {
 
-    private String[] mAlgorithmNames;
+    private ArrayList<Algorithm> mAlgorithms;
     private ItemViewHolder.OnItemClickListener mItemClickListener;
 
-    public AlgorithmsRecyclerViewAdapter(String[] algorithmNames,
+    public AlgorithmsRecyclerViewAdapter(ArrayList<Algorithm> algorithms,
                                          ItemViewHolder.OnItemClickListener itemClickListener) {
-        mAlgorithmNames = algorithmNames;
+        mAlgorithms = algorithms;
         mItemClickListener = itemClickListener;
     }
 
@@ -58,11 +61,11 @@ public class AlgorithmsRecyclerViewAdapter extends
 
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
-        holder.getAlgorithmNameTextView().setText(mAlgorithmNames[position]);
+        holder.getAlgorithmNameTextView().setText(mAlgorithms.get(position).getName());
     }
 
     @Override
     public int getItemCount() {
-        return mAlgorithmNames.length;
+        return mAlgorithms.size();
     }
 }

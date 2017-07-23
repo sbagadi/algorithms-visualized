@@ -1,5 +1,6 @@
 package com.sbagadi.apps.algorithmsvisualized.ui.algorithms;
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -20,9 +21,15 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.sbagadi.apps.algorithmsvisualized.R;
+import com.sbagadi.apps.algorithmsvisualized.data.Algorithm;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class AlgorithmDetailsActivity extends AppCompatActivity implements
         AlgorithmFragment.AlgorithmFragmentContainer {
+
+    public static final String ARG_ALGORITHMS = "algorithms";
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -43,10 +50,24 @@ public class AlgorithmDetailsActivity extends AppCompatActivity implements
     private ImageButton mPreviousStepButton;
     private ImageButton mRefreshButton;
 
+    private ArrayList<Algorithm> mAlgorithms;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_algorithm_details);
+
+        if (getIntent() == null) {
+            finish();
+        }
+
+        Intent intent = getIntent();
+        if (intent == null || intent.getParcelableArrayListExtra(ARG_ALGORITHMS) == null) {
+            finish();
+            return;
+        }
+
+        mAlgorithms = intent.getParcelableArrayListExtra(ARG_ALGORITHMS);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

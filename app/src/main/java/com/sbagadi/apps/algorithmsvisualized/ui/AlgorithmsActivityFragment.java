@@ -1,7 +1,6 @@
 package com.sbagadi.apps.algorithmsvisualized.ui;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -12,15 +11,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sbagadi.apps.algorithmsvisualized.R;
+import com.sbagadi.apps.algorithmsvisualized.data.Algorithm;
 import com.sbagadi.apps.algorithmsvisualized.ui.algorithms.AlgorithmDetailsActivity;
+
+import java.util.ArrayList;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class AlgorithmsActivityFragment extends Fragment implements
-        AlgorithmsRecyclerViewAdapter.ItemViewHolder.OnItemClickListener{
+        AlgorithmsRecyclerViewAdapter.ItemViewHolder.OnItemClickListener {
 
     private RecyclerView mRecyclerView;
+
+    private ArrayList<Algorithm> mAlgorithms;
 
     public AlgorithmsActivityFragment() {
         // Required empty public constructor.
@@ -39,8 +43,9 @@ public class AlgorithmsActivityFragment extends Fragment implements
         super.onActivityCreated(savedInstanceState);
         String[] algorithmNames =
                 getActivity().getResources().getStringArray(R.array.algorithm_names);
+        mAlgorithms = generateAlgorithmsList();
         AlgorithmsRecyclerViewAdapter adapter =
-                new AlgorithmsRecyclerViewAdapter(algorithmNames, AlgorithmsActivityFragment.this);
+                new AlgorithmsRecyclerViewAdapter(mAlgorithms, AlgorithmsActivityFragment.this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setAdapter(adapter);
@@ -50,9 +55,32 @@ public class AlgorithmsActivityFragment extends Fragment implements
     @Override
     public void onItemClick(View view, int position) {
         if (getActivity() != null) {
-            // TODO: Start the algorithms detail activity.
-            startActivity(new Intent(getActivity(), AlgorithmDetailsActivity.class));
+            Intent intent = new Intent(getActivity(), AlgorithmDetailsActivity.class);
+            intent.putParcelableArrayListExtra(
+                    AlgorithmDetailsActivity.ARG_ALGORITHMS,
+                    mAlgorithms);
+            startActivity(intent);
         }
     }
     //endregion
+
+    /**
+     * Generates a list of algorithms from algorithm names and descriptions in strings array
+     * resources.
+     *
+     * @return An array list of algorithms.
+     */
+    private ArrayList<Algorithm> generateAlgorithmsList() {
+        String[] algorithmNames =
+                getActivity().getResources().getStringArray(R.array.algorithm_names);
+        String[] algorithmDescriptions =
+                getActivity().getResources().getStringArray(R.array.algorithm_descriptions);
+
+        ArrayList<Algorithm> algorithms = new ArrayList<>(5);
+        for (int i = 0; i < algorithmNames.length; i++) {
+            algorithms.add(new Algorithm(algorithmNames[i], algorithmDescriptions[i]));
+        }
+
+        return algorithms;
+    }
 }
