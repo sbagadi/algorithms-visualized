@@ -24,12 +24,12 @@ import com.sbagadi.apps.algorithmsvisualized.R;
 import com.sbagadi.apps.algorithmsvisualized.data.Algorithm;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class AlgorithmDetailsActivity extends AppCompatActivity implements
         AlgorithmFragment.AlgorithmFragmentContainer {
 
     public static final String ARG_ALGORITHMS = "algorithms";
+    public static final String ARG_PRIMARY_ITEM_POSITION = "primary_item_position";
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -51,6 +51,7 @@ public class AlgorithmDetailsActivity extends AppCompatActivity implements
     private ImageButton mRefreshButton;
 
     private ArrayList<Algorithm> mAlgorithms;
+    private int mPrimaryItemPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,10 +69,12 @@ public class AlgorithmDetailsActivity extends AppCompatActivity implements
         }
 
         mAlgorithms = intent.getParcelableArrayListExtra(ARG_ALGORITHMS);
+        mPrimaryItemPosition = intent.getIntExtra(ARG_PRIMARY_ITEM_POSITION, 0);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(mAlgorithms.get(mPrimaryItemPosition).getName());
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -79,6 +82,25 @@ public class AlgorithmDetailsActivity extends AppCompatActivity implements
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                // Do nothing.
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (getSupportActionBar() != null) {
+                    getSupportActionBar().setTitle(mAlgorithms.get(position).getName());
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                // Do nothing.
+            }
+        });
+        mViewPager.setCurrentItem(mPrimaryItemPosition);
 
         mNextStepButton = (ImageButton) findViewById(R.id.next_setp_imageButton);
         mPreviousStepButton = (ImageButton) findViewById(R.id.previous_step_imageButton);
@@ -147,41 +169,6 @@ public class AlgorithmDetailsActivity extends AppCompatActivity implements
     //endregion
 
     /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        public PlaceholderFragment() {
-        }
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_algorithm_details, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
-        }
-    }
-
-    /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
@@ -195,26 +182,20 @@ public class AlgorithmDetailsActivity extends AppCompatActivity implements
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+
+            // TODO: Update the fragment that is to be instantiated based on position.
+            return BubbleSortFragment.newInstance(mAlgorithms.get(position));
         }
 
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return mAlgorithms.size();
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "SECTION 1";
-                case 1:
-                    return "SECTION 2";
-                case 2:
-                    return "SECTION 3";
-            }
-            return null;
+            return mAlgorithms.get(position).getName();
         }
     }
 }

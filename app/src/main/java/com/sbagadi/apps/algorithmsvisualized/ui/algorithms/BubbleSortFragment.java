@@ -6,8 +6,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.sbagadi.apps.algorithmsvisualized.R;
+import com.sbagadi.apps.algorithmsvisualized.data.Algorithm;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,34 +17,23 @@ import com.sbagadi.apps.algorithmsvisualized.R;
  * create an instance of this fragment.
  */
 public class BubbleSortFragment extends AlgorithmFragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    private static final String ARG_ALGORITHMS = "algorithms";
 
     public BubbleSortFragment() {
-        // Required empty public constructor
+        // Required empty public constructor.
     }
 
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param algorithm An {@link Algorithm} .
      * @return A new instance of fragment BubbleSortFragment.
      */
-    // TODO: Rename and change types and number of parameters
-    public static BubbleSortFragment newInstance(String param1, String param2) {
+    public static BubbleSortFragment newInstance(Algorithm algorithm) {
         BubbleSortFragment fragment = new BubbleSortFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putParcelable(ARG_ALGORITHMS, algorithm);
         fragment.setArguments(args);
         return fragment;
     }
@@ -51,26 +42,28 @@ public class BubbleSortFragment extends AlgorithmFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mAlgorithm = getArguments().getParcelable(ARG_ALGORITHMS);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_bubble_sort, container, false);
+        // Inflate the layout for this fragment.
+        View rootView = inflater.inflate(R.layout.fragment_bubble_sort, container, false);
+        ((TextView) rootView.findViewById(R.id.algorithm_name_textView))
+                .setText(mAlgorithm.getName());
+        return rootView;
     }
 
     @Override
     protected String getAlgorithmName() {
-        return getString(R.string.bubble_sort_name);
+        return mAlgorithm.getName();
     }
 
     @Override
     protected String getAlgorithmDescription() {
-        return getString(R.string.bubble_sort_description);
+        return mAlgorithm.getDescription();
     }
 
 }

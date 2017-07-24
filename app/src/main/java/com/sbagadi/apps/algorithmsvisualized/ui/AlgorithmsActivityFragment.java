@@ -59,6 +59,7 @@ public class AlgorithmsActivityFragment extends Fragment implements
             intent.putParcelableArrayListExtra(
                     AlgorithmDetailsActivity.ARG_ALGORITHMS,
                     mAlgorithms);
+            intent.putExtra(AlgorithmDetailsActivity.ARG_PRIMARY_ITEM_POSITION, position);
             startActivity(intent);
         }
     }

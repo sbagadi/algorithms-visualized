@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import com.sbagadi.apps.algorithmsvisualized.R;
+import com.sbagadi.apps.algorithmsvisualized.data.Algorithm;
 
 import static com.sbagadi.apps.algorithmsvisualized.util.LogUtils.LOGD;
 import static com.sbagadi.apps.algorithmsvisualized.util.LogUtils.makeLogTag;
@@ -24,6 +25,8 @@ public abstract class AlgorithmFragment extends Fragment {
     private static final String TAG = makeLogTag(AlgorithmFragment.class);
 
     protected AlgorithmFragmentContainer mContainer;
+
+    protected Algorithm mAlgorithm;
 
     public AlgorithmFragment() {
         // Required empty public constructor.
@@ -47,7 +50,7 @@ public abstract class AlgorithmFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
