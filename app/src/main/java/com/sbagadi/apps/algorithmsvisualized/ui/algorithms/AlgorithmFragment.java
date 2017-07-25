@@ -1,7 +1,6 @@
 package com.sbagadi.apps.algorithmsvisualized.ui.algorithms;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,10 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
-import com.sbagadi.apps.algorithmsvisualized.R;
 import com.sbagadi.apps.algorithmsvisualized.data.Algorithm;
 
-import static com.sbagadi.apps.algorithmsvisualized.util.LogUtils.LOGD;
 import static com.sbagadi.apps.algorithmsvisualized.util.LogUtils.makeLogTag;
 
 /**
